@@ -5,7 +5,11 @@ import BlogSidebar from '@/components/BlogSidebar'
 import Avatar from '@/components/ui/Avatar/Avatar'
 
 async function getPosts(): Promise<BlogPost[]> {
-  const response = await fetch(process.env.HYGRAPH_ENDPOINT!, {
+  if (!process.env.HYGRAPH_ENDPOINT) {
+    return []
+  }
+
+  const response = await fetch(process.env.HYGRAPH_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
